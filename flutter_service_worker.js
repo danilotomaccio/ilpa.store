@@ -57,14 +57,14 @@ const RESOURCES = {"assets/assets/images/Pasta.svg.vec": "28db2685ba48490628f009
 "icons/Icon-512.png": "e848ecec5d4e175b69cd4a5b92088c13",
 "icons/Icon-maskable-512.png": "957344b05b454f7b0161b98ccc57fd20",
 "sql-wasm.js": "ae7f97c3e8695a30c1ecb294affa311b",
-"version.json": "a6864ede42d6b3829ac65927aa2dc1d2",
+"version.json": "6c601c4dc78d4fd6d301f673fb2f2a8f",
 "sql-wasm.wasm": "51739179fd57f102da5297192df613e7",
 "flutter.js": "c71a09214cb6f5f8996a531350400a9a",
 "favicon.ico": "24e06b7c15a4e58e19248355a1fe96c1",
 "manifest.json": "7b3c33aad5452cb79dd17a49f636764f",
-"index.html": "7b19e40da550f1e9c7bff674af7f3b49",
-"/": "7b19e40da550f1e9c7bff674af7f3b49",
-"main.dart.js": "1ba90c96f9cb9f2cc9de2aa356334222"};
+"index.html": "1c5f7bb56800c6acda3a1eb102c27770",
+"/": "1c5f7bb56800c6acda3a1eb102c27770",
+"main.dart.js": "3c11d688a862065df3a68a0a558fa290"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
