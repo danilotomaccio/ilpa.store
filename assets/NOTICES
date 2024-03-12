@@ -2047,11 +2047,6 @@ ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------------
 animations
-camera
-camera_android
-camera_avfoundation
-camera_platform_interface
-camera_web
 cross_file
 file_selector_linux
 file_selector_macos
