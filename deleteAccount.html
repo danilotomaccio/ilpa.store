@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancellazione Dati Account</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Stile aggiuntivo per centrare il contenuto verticalmente se necessario */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+        .main-content {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-red-600 text-white p-4 shadow-md">
+        <div class="container mx-auto">
+            <h1 class="text-2xl font-bold">Gestione Account</h1>
+        </div>
+    </header>
+
+    <main class="main-content container mx-auto p-6 flex items-center justify-center">
+        <div class="bg-white p-8 md:p-10 rounded-lg shadow-xl w-full max-w-md">
+            <div class="text-center mb-8">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 text-red-500 mx-auto mb-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12.56 0c1.153 0 2.243.096 3.222.261m3.124.904a48.108 48.108 0 01-7.517-1.548C4.535 5.373 3.161 6.182 2.25 7.5c-.912 1.318-.912 2.914 0 4.232C3.161 13.05 4.535 13.858 6.001 14.17c2.526.53 5.148.635 7.764.363m0 0c2.616-.272 5.238-.377 7.764-.363m-7.764.363c2.526.53 5.148.635 7.764.363m0 0a2.25 2.25 0 002.244-2.077L21.228 5.79A48.108 48.108 0 0017.75.397M4.772 5.79A48.108 48.108 0 018.25.397M8.25.397c2.526.53 5.148.635 7.764.363M4.772 5.79L3.75 5.25M19.228 5.79L20.25 5.25" />
+                </svg>
+                <h2 class="text-3xl font-bold text-gray-700">Cancellazione Dati Account</h2>
+                <p class="text-gray-600 mt-2">Inserisci l'indirizzo email associato al tuo account per richiedere la cancellazione definitiva dei tuoi dati personali.</p>
+            </div>
+
+            <form id="deleteAccountForm" class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Indirizzo Email:</label>
+                    <input type="email" id="email" name="email" placeholder="iltuoindirizzo@example.com" required
+                           class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                </div>
+
+                <div class="flex items-center">
+                    <input id="confirmCheckbox" type="checkbox" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                    <label for="confirmCheckbox" class="ml-2 block text-sm text-gray-900">
+                        Confermo di voler cancellare i miei dati. Questa azione è irreversibile.
+                    </label>
+                </div>
+
+                <button type="submit" id="submitButton" disabled
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:bg-gray-300 disabled:cursor-not-allowed transition duration-150 ease-in-out">
+                    Richiedi Cancellazione Dati
+                </button>
+            </form>
+
+            <div id="statusMessage" class="mt-6 text-center text-sm"></div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-4 mt-auto">
+        <p>&copy; <span id="currentYear"></span> La Tua Azienda. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        // Logica JavaScript
+        const deleteAccountForm = document.getElementById('deleteAccountForm');
+        const emailInput = document.getElementById('email');
+        const statusMessage = document.getElementById('statusMessage');
+        const currentYearSpan = document.getElementById('currentYear');
+        const confirmCheckbox = document.getElementById('confirmCheckbox');
+        const submitButton = document.getElementById('submitButton');
+
+        // Imposta l'anno corrente nel footer
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
+        }
+
+        // Abilita/Disabilita il bottone in base alla checkbox
+        if (confirmCheckbox && submitButton) {
+            confirmCheckbox.addEventListener('change', function() {
+                submitButton.disabled = !this.checked;
+            });
+        }
+
+        if (deleteAccountForm) {
+            deleteAccountForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Previene l'invio standard del form
+
+                const email = emailInput.value.trim();
+
+                // Validazione semplice dell'email (il browser fa già type="email")
+                if (!email) {
+                    statusMessage.innerHTML = `<p class="text-yellow-600 p-3 bg-yellow-100 rounded-md">Per favore, inserisci il tuo indirizzo email.</p>`;
+                    return;
+                }
+
+                if (!confirmCheckbox.checked) {
+                    statusMessage.innerHTML = `<p class="text-yellow-600 p-3 bg-yellow-100 rounded-md">Devi confermare la tua intenzione di cancellare i dati.</p>`;
+                    return;
+                }
+
+                // Simulazione della richiesta al server
+                console.log(`Richiesta di cancellazione inviata per l'email: ${email}`);
+
+                // Mostra un messaggio di successo
+                statusMessage.innerHTML = `
+                    <div class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-md" role="alert">
+                        <strong class="font-bold">Richiesta Inviata!</strong>
+                        <p class="block sm:inline">La tua richiesta di cancellazione per l'email <strong>${email}</strong> è stata presa in carico. Riceverai una conferma via email una volta che il processo sarà completato.</p>
+                    </div>`;
+
+                // Svuota il campo email e deseleziona la checkbox dopo l'invio (opzionale)
+                emailInput.value = '';
+                confirmCheckbox.checked = false;
+                submitButton.disabled = true;
+
+                // In un'applicazione reale, qui faresti una chiamata a un endpoint del backend:
+                // fetch('/api/delete-account', {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //     },
+                //     body: JSON.stringify({ email: email })
+                // })
+                // .then(response => response.json())
+                // .then(data => {
+                //     console.log('Success:', data);
+                //     // Aggiorna statusMessage con la risposta del server
+                // })
+                // .catch((error) => {
+                //     console.error('Error:', error);
+                //     statusMessage.innerHTML = \`<p class="text-red-600 p-3 bg-red-100 rounded-md">Si è verificato un errore durante l'invio della richiesta.</p>\`;
+                // });
+            });
+        }
+    </script>
+
+</body>
+</html>
